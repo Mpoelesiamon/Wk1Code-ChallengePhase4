@@ -42,7 +42,7 @@ This project demonstrates a full-stack web application using Flask as the backen
 1. Start the Flask backend:
 
     ```bash
-    cd backend
+    cd python-code-challenge/code-challenge/app
     python app.py
     ```
 
@@ -51,7 +51,7 @@ This project demonstrates a full-stack web application using Flask as the backen
 2. Start the React frontend:
 
     ```bash
-    cd ../frontend
+    cd ../client
     npm start
     ```
 
