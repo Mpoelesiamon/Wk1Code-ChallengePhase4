@@ -81,3 +81,5 @@ Feel free to contribute to this project. Submit issues or pull requests as neede
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+# Author
+David Munuhe Muchoki
