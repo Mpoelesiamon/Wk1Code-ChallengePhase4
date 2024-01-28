@@ -26,14 +26,14 @@ This project demonstrates a full-stack web application using Flask as the backen
 3. Install frontend dependencies:
 
     ```bash
-    cd frontend
+    cd client
     npm install
     ```
 
 4. Install backend dependencies:
 
     ```bash
-    cd ../backend
+    cd ../app
     pip install -r requirements.txt
     ```
 
