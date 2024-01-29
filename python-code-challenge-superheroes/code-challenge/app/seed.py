@@ -1,6 +1,6 @@
 from models import Hero, HeroPower, Power, db
 from app  import app
-from random import choice as rc
+from random import choice
 
 with app.app_context():
   Hero.query.delete()
@@ -57,9 +57,9 @@ with app.app_context():
   
   for n in range (4):
     for hero in all_heroes_power :
-      power= rc(all_power)
-      heroes_power= rc(all_heroes_power)
-      power_item = HeroPower(strength = rc(strengths),  hero_id=heroes_power.id, power_id=power.id)
+      power= choice(all_power)
+      heroes_power= choice(all_heroes_power)
+      power_item = HeroPower(strength = choice(strengths),  hero_id=heroes_power.id, power_id=power.id)
       hero_power.append(power_item)
 
     db.session.add_all(hero_power)
