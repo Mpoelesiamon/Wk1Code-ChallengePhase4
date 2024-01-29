@@ -76,43 +76,49 @@ class PowersByID(Resource):
     def patch(self,id):
         power = Power.query.filter_by(id=id).first()
         record_dict= power.to_dict() if power else None
-        
-        if record_dict== None:
-            error_dict=  {'error': 'Power not found'}
-            response= make_response(error_dict, 404)
-            return response
-        else:
-            for attr in request.form:
-                setattr(power, attr, request.form[attr])
+        try:
+            if record_dict== None:
+                error_dict=  {'error': 'Power not found'}
+                response= make_response(error_dict, 404)
+                return response
+            else:
+                for attr in request.form:
+                    setattr(power, attr, request.form[attr])
+                
+                db.session.add(power)
             
-            db.session.add(power)
-            try:
                 db.session.commit()
                 power_dict= power.to_dict()
                 response= make_response(power_dict, 200)
                 return response
-            except:
-                err_dict= {"errors" : ["validation errors"]}
-                response= make_response(err_dict, 404)
-                db.session.rollback()
-                return response         
+        except:
+            err_dict= {"errors" : ["validation errors"]}
+            response= make_response(err_dict, 404)
+            db.session.rollback()
+            return response         
 
 api.add_resource(PowersByID, '/powers/<int:id>')
 
 class HeroPowers(Resource):
     def post(self):
-        new_record=  HeroPower(
-            strength= request.form['strength'],
-            power_id=  int(request.form['power_id']),
-            hero_id=   int(request.form['hero_id']),
-        )
-        db.session.add(new_record)
-        db.session.commit()
-        
-        response_dict= new_record.to_dict()
-        
-        response= make_response(jsonify(response_dict), 201)
-        return response
+        try:
+            new_record=  HeroPower(
+                strength= request.form['strength'],
+                power_id=  int(request.form['power_id']),
+                hero_id=   int(request.form['hero_id']),
+            )
+            db.session.add(new_record)
+            db.session.commit()
+            
+            response_dict= new_record.to_dict()
+            
+            response= make_response(jsonify(response_dict), 201)
+            return response
+        except:
+            err_dict= {"errors" : ["validation errors"]}
+            response= make_response(err_dict, 404)
+            db.session.rollback()
+            return response  
     
 api.add_resource(HeroPowers, '/hero_powers')   
      
