@@ -100,6 +100,17 @@ class PowersByID(Resource):
 api.add_resource(PowersByID, '/powers/<int:id>')
 
 class HeroPowers(Resource):
+
+    def get(self):
+        hero_power_dict = [r.to_dict() for r in HeroPower.query.all()] 
+        if hero_power_dict:
+            response= make_response(jsonify(hero_power_dict), 200)
+            return response
+        else:
+            error_dict=  {'error': 'Hero power not found'}
+            response= make_response(error_dict, 404)
+            return response
+
     def post(self):
         try:
             new_record=  HeroPower(
