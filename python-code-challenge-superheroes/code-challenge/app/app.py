@@ -54,7 +54,8 @@ api.add_resource(HeroesByID, '/heroes/<int:id>')
 class Powers(Resource):
     def get(self):
         response_dict= [n.to_dict() for n in Power.query.all()]
-        
+        # response_dict= [n.serialize() for n in Power.query.all()]
+
         response= make_response(response_dict, 200)
         return  response
 
@@ -113,17 +114,30 @@ class HeroPowers(Resource):
 
     def post(self):
         try:
-            new_record=  HeroPower(
-                strength= request.form['strength'],
-                power_id=  int(request.form['power_id']),
-                hero_id=   int(request.form['hero_id']),
-            )
+            # new_record=  HeroPower(
+            data= request.get_json()
+            # # strength= request.form['strength']
+            # power_id=  int(request.form['power_id'])
+            # hero_id=   int(request.form['hero_id'])
+            strength= data.get("strength")
+            power_id= data.get('power_id')
+            hero_id=  data.get('hero_id')
+            # )
+            #Checking if power and hero exist
+            power= Power.query.get(power_id)
+            hero= Hero.query.get(hero_id)
+
+            if not (power and hero):
+                return make_response(jsonify({"errors": ["Power  or Hero does not exist."]}), 404)
+            
+            #Creating new hero power
+            new_record= HeroPower(strength=strength, power_id=power_id, hero_id=hero_id)
             db.session.add(new_record)
             db.session.commit()
             
-            response_dict= new_record.to_dict()
+            hero_dict= hero.to_dict()
             
-            response= make_response(jsonify(response_dict), 201)
+            response= make_response(jsonify(hero_dict), 201)
             return response
         except:
             err_dict= {"errors" : ["validation errors"]}

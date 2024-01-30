@@ -42,6 +42,7 @@ class HeroPower(db.Model, SerializerMixin):
 class Power(db.Model, SerializerMixin):
     __tablename__ = 'powers'
     serialize_rules= ('-hero_powers.power',)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column (db.String, nullable= False)
     description = db.Column (db.String, nullable= False)
@@ -49,6 +50,9 @@ class Power(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now()) 
     hero_powers =  db.relationship("HeroPower", backref="power")
     
+    # def serialize(self):
+    #     return {"id": self.id , "name": self.name, "Description": self.description}
+
     @validates('description')
     def  validate_description(self, key, description):   
         if  description is None and len(description) <20 :
