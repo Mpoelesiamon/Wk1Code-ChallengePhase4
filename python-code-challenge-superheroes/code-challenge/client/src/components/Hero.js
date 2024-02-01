@@ -22,6 +22,7 @@ function Hero() {
       }
     });
   }, [id]);
+  console.log(hero)
 
   if (status === "pending") return <h1>Loading...</h1>;
   if (status === "rejected") return <h1>Error: {error.error}</h1>;
@@ -33,7 +34,7 @@ function Hero() {
 
       <h3>Powers:</h3>
       <ul>
-        {hero.powers.map((power) => (
+        {hero.hero_powers.map((power) => (
           <li key={hero.id}>
             <Link to={`/powers/${power.id}`}>{power.name}</Link>
           </li>

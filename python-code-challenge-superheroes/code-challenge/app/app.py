@@ -114,8 +114,9 @@ class HeroPowers(Resource):
 
     def post(self):
         try:
-            # new_record=  HeroPower(
-            data= request.get_json()
+            # We are using this to allow us post JSON data from a react form.
+            data= request.get_json() 
+            
             # # strength= request.form['strength']
             # power_id=  int(request.form['power_id'])
             # hero_id=   int(request.form['hero_id'])
@@ -136,7 +137,7 @@ class HeroPowers(Resource):
             db.session.commit()
             
             hero_dict= hero.to_dict()
-            
+
             response= make_response(jsonify(hero_dict), 201)
             return response
         except:

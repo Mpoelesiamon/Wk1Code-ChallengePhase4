@@ -20,7 +20,7 @@ class Hero(db.Model, SerializerMixin):
 
 class HeroPower(db.Model, SerializerMixin):
     __tablename__ = 'hero_powers'
-    serialize_rules= ('-hero.hero_powers','-power.hero  _powers')
+    serialize_rules= ('-hero.hero_powers','-power.hero_powers')
     
     id = db.Column(db.Integer, primary_key=True)
     strength = db.Column (db.String, nullable= False)
