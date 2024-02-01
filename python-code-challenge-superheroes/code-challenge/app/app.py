@@ -77,14 +77,15 @@ class PowersByID(Resource):
     def patch(self,id):
         power = Power.query.filter_by(id=id).first()
         record_dict= power.to_dict() if power else None
+        data= request.get_json()
         try:
             if record_dict== None:
                 error_dict=  {'error': 'Power not found'}
                 response= make_response(error_dict, 404)
                 return response
             else:
-                for attr in request.form:
-                    setattr(power, attr, request.form[attr])
+                for attr, value in data.items():
+                    setattr(power, attr, value)
                 
                 db.session.add(power)
             
