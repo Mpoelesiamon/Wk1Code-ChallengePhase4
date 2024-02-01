@@ -65,7 +65,7 @@ with app.app_context():
     db.session.add_all(hero_power)
     db.session.commit()
     
-  
+  #Pseudo code
   # Hero.all.each do |hero|
   #   rand(1..3).times do
   #     # get a random power
