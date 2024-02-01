@@ -9,7 +9,8 @@ from werkzeug.exceptions import NotFound
 from models import db, Hero, Power, HeroPower
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://superheroes_app_user:6QO099Aln0j40ge67FdeYIhXHZqFe7tB@dpg-cmtvr80cmk4c7391nopg-a.oregon-postgres.render.com/superheroes_app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # base = declarative_base()
 
