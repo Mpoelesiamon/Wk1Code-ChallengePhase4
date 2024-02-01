@@ -78,6 +78,7 @@ class PowersByID(Resource):
         power = Power.query.filter_by(id=id).first()
         record_dict= power.to_dict() if power else None
         data= request.get_json()
+        print(data)
         try:
             if record_dict== None:
                 error_dict=  {'error': 'Power not found'}

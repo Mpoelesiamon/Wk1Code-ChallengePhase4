@@ -22,7 +22,8 @@ function Hero() {
       }
     });
   }, [id]);
-  console.log(hero)
+
+console.log(hero)
 
   if (status === "pending") return <h1>Loading...</h1>;
   if (status === "rejected") return <h1>Error: {error.error}</h1>;
